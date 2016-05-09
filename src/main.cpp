@@ -1,6 +1,11 @@
 //#define __DEBUG__
 #define GLFW_INCLUDE_GLCOREARB
 
+#ifdef __APPLE__
+# define __gl_h_
+# define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
+#endif
+
 #include <GLFW/glfw3.h>
 #include "OceanSimulation.h"
 #include "Registry.h"
@@ -14,7 +19,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 void cursor_position_callback(GLFWwindow* window, double x, double y);
 
-int main(void)
+int main(int argc, char** argv)
 {
     GLFWwindow* window;
 
@@ -129,4 +134,3 @@ void cursor_position_callback(GLFWwindow* window, double x, double y)
         cursorY = y;
     }
 }
-

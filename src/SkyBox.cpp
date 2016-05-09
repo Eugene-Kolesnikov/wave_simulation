@@ -53,18 +53,18 @@ void SkyBox::initGL()
     glBindTexture(GL_TEXTURE_CUBE_MAP, cubeTexture);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    SDL_Surface *xpos = IMG_Load("/Users/eugene/Desktop/cuda-workspace/WaterSimulation/cube/front.png");
-    SDL_Surface *xneg = IMG_Load("/Users/eugene/Desktop/cuda-workspace/WaterSimulation/cube/back.png");
-    SDL_Surface *ypos = IMG_Load("/Users/eugene/Desktop/cuda-workspace/WaterSimulation/cube/top.png");
-    SDL_Surface *yneg = IMG_Load("/Users/eugene/Desktop/cuda-workspace/WaterSimulation/cube/bottom.png");
-    SDL_Surface *zpos = IMG_Load("/Users/eugene/Desktop/cuda-workspace/WaterSimulation/cube/left.png");
-    SDL_Surface *zneg = IMG_Load("/Users/eugene/Desktop/cuda-workspace/WaterSimulation/cube/right.png");
+    SDL_Surface *xpos = IMG_Load("../cube/front.png");
+    SDL_Surface *xneg = IMG_Load("../cube/back.png");
+    SDL_Surface *ypos = IMG_Load("../cube/top.png");
+    SDL_Surface *yneg = IMG_Load("../cube/bottom.png");
+    SDL_Surface *zpos = IMG_Load("../cube/left.png");
+    SDL_Surface *zneg = IMG_Load("../cube/right.png");
     setupCubeMap(cubeTexture, xpos, xneg, ypos, yneg, zpos, zneg);
 
     glShaderV = glCreateShader(GL_VERTEX_SHADER);
     glShaderF = glCreateShader(GL_FRAGMENT_SHADER);
-    const GLchar* vShaderSource = loadFile("/Users/eugene/Desktop/cuda-workspace/WaterSimulation/skybox.vert.glsl");
-    const GLchar* fShaderSource = loadFile("/Users/eugene/Desktop/cuda-workspace/WaterSimulation/skybox.frag.glsl");
+    const GLchar* vShaderSource = loadFile("../skybox.vert.glsl");
+    const GLchar* fShaderSource = loadFile("../skybox.frag.glsl");
     glShaderSource(glShaderV, 1, &vShaderSource, NULL);
     glShaderSource(glShaderF, 1, &fShaderSource, NULL);
     delete [] vShaderSource;
@@ -107,10 +107,10 @@ void SkyBox::render(const glm::mat4 &PV)
 }
 
 void SkyBox::setupCubeMap(GLuint& texture, SDL_Surface *xpos, SDL_Surface *xneg, SDL_Surface *ypos, SDL_Surface *yneg, SDL_Surface *zpos, SDL_Surface *zneg) {
-    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA, xpos->w, xpos->h, 0, xpos->format->BytesPerPixel == 4 ? GL_BGRA : GL_BGR, GL_UNSIGNED_BYTE, xpos->pixels);
-    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA, xneg->w, xneg->h, 0, xneg->format->BytesPerPixel == 4 ? GL_BGRA : GL_BGR, GL_UNSIGNED_BYTE, xneg->pixels);
-    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA, ypos->w, ypos->h, 0, ypos->format->BytesPerPixel == 4 ? GL_BGRA : GL_BGR, GL_UNSIGNED_BYTE, ypos->pixels);
-    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGBA, yneg->w, yneg->h, 0, yneg->format->BytesPerPixel == 4 ? GL_BGRA : GL_BGR, GL_UNSIGNED_BYTE, yneg->pixels);
-    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGBA, zpos->w, zpos->h, 0, zpos->format->BytesPerPixel == 4 ? GL_BGRA : GL_BGR, GL_UNSIGNED_BYTE, zpos->pixels);
-    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGBA, zneg->w, zneg->h, 0, zneg->format->BytesPerPixel == 4 ? GL_BGRA : GL_BGR, GL_UNSIGNED_BYTE, zneg->pixels);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA, xpos->w, xpos->h, 0, xpos->format->BytesPerPixel == 4 ? GL_BGRA : GL_RGBA, GL_UNSIGNED_BYTE, xpos->pixels);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA, xneg->w, xneg->h, 0, xneg->format->BytesPerPixel == 4 ? GL_BGRA : GL_RGBA, GL_UNSIGNED_BYTE, xneg->pixels);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA, ypos->w, ypos->h, 0, ypos->format->BytesPerPixel == 4 ? GL_BGRA : GL_RGBA, GL_UNSIGNED_BYTE, ypos->pixels);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGBA, yneg->w, yneg->h, 0, yneg->format->BytesPerPixel == 4 ? GL_BGRA : GL_RGBA, GL_UNSIGNED_BYTE, yneg->pixels);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGBA, zpos->w, zpos->h, 0, zpos->format->BytesPerPixel == 4 ? GL_BGRA : GL_RGBA, GL_UNSIGNED_BYTE, zpos->pixels);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGBA, zneg->w, zneg->h, 0, zneg->format->BytesPerPixel == 4 ? GL_BGRA : GL_RGBA, GL_UNSIGNED_BYTE, zneg->pixels);
 }

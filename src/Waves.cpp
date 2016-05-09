@@ -2,8 +2,8 @@
 #include <cstdio>
 #include "Registry.h"
 
-#include <helper_cuda.h>
-#include <helper_cuda_gl.h>
+// #include <helper_cuda.h>
+// #include <helper_cuda_gl.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -37,7 +37,7 @@ Waves::~Waves()
 void Waves::initGL()
 {
 	// create FFT plan
-	checkCudaErrors(cufftPlan2d(&fftPlan, meshSize, meshSize, CUFFT_C2C));
+	cufftPlan2d(&fftPlan, meshSize, meshSize, CUFFT_C2C);
 
 	// allocate memory
 	int spectrumSize = spectrum*spectrum*sizeof(float2);
@@ -78,8 +78,8 @@ void Waves::initGL()
 
 	glShaderV = glCreateShader(GL_VERTEX_SHADER);
 	glShaderF = glCreateShader(GL_FRAGMENT_SHADER);
-	const GLchar* vShaderSource = loadFile("/Users/eugene/Desktop/cuda-workspace/WaterSimulation/waves.vert.glsl");
-	const GLchar* fShaderSource = loadFile("/Users/eugene/Desktop/cuda-workspace/WaterSimulation/waves.frag.glsl");
+	const GLchar* vShaderSource = loadFile("../waves.vert.glsl");
+	const GLchar* fShaderSource = loadFile("../waves.frag.glsl");
 	glShaderSource(glShaderV, 1, &vShaderSource, NULL);
 	glShaderSource(glShaderF, 1, &fShaderSource, NULL);
 	delete [] vShaderSource;
@@ -222,7 +222,7 @@ void Waves::generateH0()
 
 float Waves::gauss()
 {
-	// BoxÐMuller transform.
+	// Boxï¿½Muller transform.
 	// Generates Gaussian random number with mean 0 and standard deviation 1.
     float u1 = rand() / (float)RAND_MAX;
     float u2 = rand() / (float)RAND_MAX;
@@ -324,7 +324,7 @@ void Waves::computeHt()
 #endif
 
 	// execute inverse FFT to convert to spatial domain
-	checkCudaErrors(cufftExecC2C(fftPlan, d_ht, d_ht, CUFFT_INVERSE));
+	cufftExecC2C(fftPlan, d_ht, d_ht, CUFFT_INVERSE);
 
 	// update heightmap values in vertex buffer
 	checkCudaErrors(cudaGraphicsMapResources(1, &cuda_heightVB_resource, 0));

@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <SDL2_image/SDL_image.h>
+#include <SDL2/SDL_image.h>
 
 #include "Registry.h"
 #include "SkyBox.h"

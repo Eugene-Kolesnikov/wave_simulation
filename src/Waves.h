@@ -4,6 +4,7 @@
 //#define __DEBUG__
 #include <OpenGL/gl3.h>
 #include <glm/glm.hpp>
+#include <cuda.h>
 #include <cuda_runtime.h>
 #include <cuda_gl_interop.h>
 #include <cufft.h>
